@@ -1,3 +1,7 @@
+// код вставляємо в JS файл
+// додаємо API в футер сайту
+// <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAowdFNkUGZ-b6WvxwkyII2Lry2hjO6vcY"></script>
+
 function initMap() {
     var center = new google.maps.LatLng(49.839683, 24.029717);
     var mapCanvas = document.getElementById('map');
