@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Google maps</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+<body>
+	<div class="mapwrapper">
+		<div id="blockMap"></div>
+		<div id="map"></div>
+	</div>
+	
+	<style>
+		.mapwrapper {
+			position: absolute;
+			bottom: 50px;
+			right: 0;
+			left: 0;
+			top: 0;
+		}
+		#blockMap {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			background-color: orange;
+			opacity: 0.5;
+			z-index: 2;
+		}
+		#map {
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	<script>
+			//made map
+			function myMap() {
+				var center = new google.maps.LatLng(49.841923,24.031616);
+				var mapCanvas = document.getElementById("map");
+				var mapOptions = {
+					center: center,
+					zoom: 10,
+					disableDefaultUI: true,
+					scrollwheel:false,
+					draggable:false
+				};
+				var map = new google.maps.Map(mapCanvas, mapOptions);
+				var marker = new google.maps.Marker({position:center});
+				marker.setMap(map);
+
+				google.maps.event.addListener(map, 'click', function(event){
+					this.setOptions({scrollwheel:true, draggable:true });
+				});
+			}
+
+			// moving map after click on
+			$('#blockMap').click(function(){
+				$(this).css('display', 'none');
+			});
+
+			$(document).click( function(event){
+				if( $(event.target).closest("#blockMap, #map").length ) 
+					return;
+				$("#blockMap").css("display","block");
+				event.stopPropagation();
+			});
+
+		</script>
+		<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAowdFNkUGZ-b6WvxwkyII2Lry2hjO6vcY&callback=myMap"></script>
+	</body>
+	</html>
