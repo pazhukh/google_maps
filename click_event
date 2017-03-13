@@ -56,15 +56,16 @@
 				});
 			}
 
-			// moving map after click on
-			$('#blockMap').click(function(){
-				$(this).css('display', 'none');
+			// possible moving map after click on
+			$blockMap.fadeOut();
+			$blockMap.click(function(){
+				$(this).fadeOut();
 			});
-
+			
 			$(document).click( function(event){
 				if( $(event.target).closest("#blockMap, #map").length ) 
 					return;
-				$("#blockMap").css("display","block");
+				$("#blockMap").fadeIn();
 				event.stopPropagation();
 			});
 
