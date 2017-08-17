@@ -37,6 +37,9 @@
 	</style>
 	<script>
 			//made map
+			//вставляємо в шаблон відразу після верстки карти
+			<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAowdFNkUGZ-b6WvxwkyII2Lry2hjO6vcY&callback=myMap"></script>
+			
 			function myMap() {
 				var center = new google.maps.LatLng(49.841923,24.031616);
 				var mapCanvas = document.getElementById("map");
@@ -70,6 +73,5 @@
 			});
 
 		</script>
-		<script  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAowdFNkUGZ-b6WvxwkyII2Lry2hjO6vcY&callback=myMap"></script>
 	</body>
 	</html>
