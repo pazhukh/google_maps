@@ -33,3 +33,39 @@ function initMap() {
     marker.setMap(map);
   }
   google.maps.event.addDomListener(window, 'load', initMap);
+  
+  *********************************************************************************************
+  	<script>
+		var map;
+		
+  		function initMap() {
+			geocoder = new google.maps.Geocoder();
+			
+			map = new google.maps.Map(document.getElementById('footer-map'), {
+				center: {lat: 49.90285143, lng: 23.94450366}, 
+				scrollwheel: false,
+				zoom: 17,
+				mapTypeControl: false
+			});
+			
+			if ($(window).width() < 768) {
+				map.setZoom(15);
+			}
+			
+			var markerNovobudova = new google.maps.Marker({
+				position: new google.maps.LatLng(49.90327641, 23.94106641),
+				icon: 'img/map-icons/novobudova.png',
+				map: map
+			});
+			
+			var markerBank = new google.maps.Marker({
+				position: new google.maps.LatLng(49.9031192, 23.9413695),
+				icon: 'img/map-icons/bank.png',
+				map: map
+			});
+
+		};
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl_RPVVm9f9-3_TjqcEPgPPan5ECrqezA&callback=initMap"></script>
+    
+    *********************************************************************************************
