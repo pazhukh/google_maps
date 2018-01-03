@@ -1,3 +1,11 @@
+//geolocation
+https://developers.google.com/maps/documentation/javascript/geolocation?hl=ru
+
+
+
+
+
+
 // This code add to file JS
 // Add API to the footer of the our site
 // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAowdFNkUGZ-b6WvxwkyII2Lry2hjO6vcY"></script>
