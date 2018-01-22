@@ -1,15 +1,24 @@
 console google api
 https://console.developers.google.com/apis/dashboard?project=lima-expert-1515580081189&duration=PT1H
 
-
+*********************************************************************************************
 
 //geolocation
 https://developers.google.com/maps/documentation/javascript/geolocation?hl=ru
 
+*********************************************************************************************
 
+clear all markers
+https://developers.google.com/maps/documentation/javascript/examples/marker-remove?hl=ru
+function clearMarkers() {
+for (var i = 0; i < markers.length; i++ ) {
+		markers[i].setMap(null);
+}
+markers.length = 0;
+}
+clearMarkers();
 
-
-
+*********************************************************************************************
 
 // This code add to file JS
 // Add API to the footer of the our site
