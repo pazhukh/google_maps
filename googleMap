@@ -244,71 +244,81 @@ clearMarkers();
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDl_RPVVm9f9-3_TjqcEPgPPan5ECrqezA&callback=initMap"></script>
     
-    *********************************************************************************************
 
+*********************************************************************************************
 
 //карта з декількома маркерами і інформаційними вікнами
 <script type="text/javascript">
-						var bounds;
-						var points = {};
-						/* Initialize the map */
-						function initialize(){
-							var map = null;
-							var mapOptions={
-								center: new google.maps.LatLng(54.749991,-4.18213),
-								zoom: 3,
-								mapTypeId: google.maps.MapTypeId.ROADMAP
+						jQuery(function($){
+
+
+							var bounds;
+							var points = {};
+							/* Initialize the map */
+							function initialize(){
+								var map = null;
+								var mapOptions={
+									center: new google.maps.LatLng(54.749991,-4.18213),
+									zoom: 3,
+								}
+								map = new google.maps.Map(document.getElementById("map"),
+									mapOptions);
+								setMarkers(map, markers);
 							}
-							map = new google.maps.Map(document.getElementById("map"),
-								mapOptions);
-							setMarkers(map, markers);
-						}
+							var markers = [
+							[-33.890542, 151.274856],
+							[-33.923036, 151.259052],
+							[-34.028249, 151.157507],
+							[-33.80010128657071, 151.28747820854187],
+							[-33.950198, 151.259302]
+							];
 
-						var markers = [
-						[-33.890542, 151.274856],
-						[-33.923036, 151.259052],
-						[-34.028249, 151.157507],
-						[-33.80010128657071, 151.28747820854187],
-						[-33.950198, 151.259302]
-						];
+							var markersArray = [];
 
-						var markersArray = [];
+							function setMarkers(map, markers) {
 
-						function setMarkers(map, markers) {
+								bounds = new google.maps.LatLngBounds();
 
-							bounds = new google.maps.LatLngBounds();
+								var infowindow = new google.maps.InfoWindow({content: "some text here..."});
 
-							var infowindow = new google.maps.InfoWindow();
+								for (var i = 0; i < markers.length; i++) {
 
-							for (var i = 0; i < markers.length; i++) {
+									var image = 'assets/img/icon/marker-man.png';
+									var markerData = markers[i];
+									var myLatLng = new google.maps.LatLng(markerData[0], markerData[1]);
+									points[i]=myLatLng;
 
-								var markerData = markers[i];
-								var myLatLng = new google.maps.LatLng(markerData[0], markerData[1]);
-								points[i]=myLatLng;
-								var marker = new google.maps.Marker({
-									position: myLatLng,
-									map: map,
-								});
-								marker.content=jQuery('.to-infowindow').html();
-								bounds.extend(myLatLng);
-								markersArray[i] = marker;
+									var marker = new google.maps.Marker({
+										position: myLatLng,
+										map: map,
+										icon: image,
+									});
 
-								google.maps.event.addListener(marker, 'click', function(){
-									infowindow.setContent(this.content);
-									infowindow.open(map,this);
-									var infoWind = $('#map .gm-style-iw');
-									infoWind.prev().remove();
-									infoWind.next().css('right', '27px');
-								});
-								google.maps.event.addListener(map, "click", function(event) {
-									infowindow.close();
-								});
+									marker.content=$('.to-infowindow').html();
+									bounds.extend(myLatLng);
+									markersArray[i] = marker;
+
+									google.maps.event.addListener(marker, 'click', function(){
+										infowindow.setContent(this.content);
+										infowindow.open(map,this);
+
+										//style infowindow
+										var infoWind = $('#map .gm-style-iw');
+										infoWind.prev().remove();
+										infoWind.next().css('right', '27px');
+									});
+
+
+									google.maps.event.addListener(map, "click", function(event) {
+										infowindow.close();
+									});
+
+								}
+
+								map.fitBounds(bounds);
 
 							}
 
-							map.fitBounds(bounds);
-
-						}
-
-						initialize();        
+							initialize();        
+						})
 					</script>
