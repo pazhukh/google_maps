@@ -1,0 +1,81 @@
+
+
+let directionsService;
+let map;
+let label = 1;
+
+function initMap() {
+
+
+directionsService = new google.maps.DirectionsService();
+  
+  map = new google.maps.Map(document.getElementById("map"), {
+  });
+  
+  var origin1 = new google.maps.LatLng(50.596652, 15.812765);
+  var dest1 = new google.maps.LatLng(46.4674824, 26.4513263);
+  
+  var origin2 = new google.maps.LatLng(53.817135462444135, 42.45826326601366);
+  var dest2 = new google.maps.LatLng(49.8264875, 19.201534);
+  
+   var origin3 = new google.maps.LatLng(49.842135462444135, 24.028326601366);
+  var dest3 = new google.maps.LatLng(48.8264875, 0.201534);
+
+   calculateRoute(origin1, dest1);
+   calculateRoute(origin2, dest2);
+   calculateRoute(origin3, dest3);
+
+
+  
+   setTimeout(() => {
+     var bounds = new google.maps.LatLngBounds();
+     bounds.extend(origin1);
+     bounds.extend(origin2);
+     bounds.extend(dest1);
+     bounds.extend(dest2);
+
+     map.fitBounds(bounds);
+   }, 500)
+   
+}
+
+
+
+function calculateRoute(mapOrigin, mapDestination) {
+  
+    var directionsDisplay = new google.maps.DirectionsRenderer({
+      map: map,
+      suppressMarkers: true
+    });
+    
+    var request = {
+      origin: mapOrigin,
+      destination: mapDestination,
+      travelMode: 'DRIVING'
+    };
+    
+    directionsService.route(request, function(result, status) {
+      if (status == "OK") {
+        directionsDisplay.setDirections(result);
+        directionsDisplay.setOptions({
+    polylineOptions: {
+      strokeColor: 'blue'
+    }
+  })
+        var leg = result.routes[ 0 ].legs[ 0 ];
+        makeMarker(leg.start_location, label.toString());
+        label ++;
+        makeMarker(leg.end_location, label.toString());
+        label ++;
+      }
+    });
+  }
+  
+ let makeMarker =  function ( position, label ) {
+ new google.maps.Marker({
+  position: position,
+  label: label,
+  map: map,
+ });
+}
+
